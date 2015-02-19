@@ -1,0 +1,115 @@
+// ============================================================================
+// Viewport specific classes
+// ============================================================================
+
+// LG
+// ============================================================================
+.vp-lg {
+    display: none;
+
+    @include bp(lg) {
+        display: block;
+    }
+}
+
+.vp-not-lg {
+    display: block;
+
+    @include bp(lg) {
+        display: none;
+    }
+}
+
+// MD
+// ============================================================================
+.vp-md {
+    display: none;
+
+    @include bp(md) {
+        display: block;
+    }
+
+    @include bp(lg) {
+        display: none;
+    }
+}
+
+.vp-gt-md {
+    display: none;
+
+    @include bp(lg) {
+        display: block;
+    }
+}
+
+.vp-not-md {
+    display: block;
+
+    @include bp(md) {
+        display: none;
+    }
+
+    @include bp(lg) {
+        display: block;
+    }
+}
+
+// SM
+// ============================================================================
+.vp-sm {
+    display: none;
+
+    @include bp(sm) {
+        display: block;
+    }
+
+    @include bp(md) {
+        display: none;
+    }
+}
+
+.vp-gt-sm {
+    display: none;
+
+    @include bp(md) {
+        display: block;
+    }
+}
+
+.vp-not-sm {
+    display: block;
+
+    @include bp(sm) {
+        display: none;
+    }
+
+    @include bp(md) {
+        display: block;
+    }
+}
+
+// XS
+// ============================================================================
+.vp-xs {
+    display: block;
+
+    @include bp(sm) {
+        display: none;
+    }
+}
+
+.vp-gt-xs {
+    display: none;
+
+    @include bp(sm) {
+        display: block;
+    }
+}
+
+.vp-not-xs {
+    display: none;
+
+    @include bp(sm) {
+        display: block;
+    }
+}

@@ -1,0 +1,19 @@
+// ============================================================================
+// Sass sprites
+//
+// Sass creates a class name, named after the image added to the sprite.
+// This class has the width, height and background position added
+// automatically
+//
+// When uncommenting the following SCSS, make sure the corresponding image
+// folder exists, otherwise this will break the compile.
+// ============================================================================
+
+// $main-sprite: sprite-map("main/*.png", $icon-spacing: 2px);
+// $main-sprite-retina: sprite-map("main-retina/*.png", $icon-spacing: 2px);
+
+// @include retina-sprite($main-sprite, $main-sprite-retina);
+
+// .main-sprite {
+//     display: inline-block;
+// }

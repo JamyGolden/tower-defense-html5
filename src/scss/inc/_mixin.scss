@@ -1,0 +1,133 @@
+// ============================================================================
+// List of mixins
+// ============================================================================
+
+ @mixin bp($point) {
+    @if $point == xs {
+        @content;
+    }
+    @else if $point == sm {
+        @media (min-width: $bp-sm) {
+            @content;
+        }
+    }
+    @else if $point == md {
+        @media (min-width: $bp-md) {
+            @content;
+        }
+    }
+    @else if $point == lg {
+        @media (min-width: $bp-lg) {
+            @content;
+        }
+    }
+    @else {
+        @media (min-width: $point) {
+            @content;
+        }
+    }
+}
+
+@mixin appearance($val) {
+    -webkit-appearance: $val;
+       -moz-appearance: $val;
+            appearance: $val;
+}
+
+@mixin user-select($val) {
+    -webkit-touch-callout: $val;
+    -webkit-user-select: $val;
+       -moz-user-select: $val;
+        -ms-user-select: $val;
+            user-select: $val;
+}
+
+// Retina Sprite
+// Mixin takes a two sprite maps, one normal and one retina. It then swaps
+// out the sprite images, repositions and resizes the images accordingly
+//
+// Rules
+//
+// Image names within the sprites should match. For example logo.png should
+// exist within both folders. If the image doesn't exist within the retina
+// sprite, the image will fallback to the image that does exist.
+//
+// Accepted parameters
+//
+// $sprite-map - the sprite map @ normal size
+// $sprite-retina-map - the sprite map @ 2x
+//
+// Example usage
+//
+// $main-sprite: sprite-map("main/*.png");
+// $main-srite-retina: sprite-map("main-retina/*.png");
+// @include retina-sprite($main-sprite, $main-srite-retina);
+// ============================================================================
+
+@mixin retina-sprite($sprite-map: null, $sprite-retina-map: null) {
+
+    // Calculate nothing if $sprite-map is left out
+    @if $sprite-map != null {
+        $folder: sprite-map-name($sprite-map);
+
+        .#{$folder}-sprite {
+            @include inline-block();
+            text-indent: -9999px;
+        }
+
+        .#{$folder} {
+            background-image: sprite-url($sprite-map);
+            background-repeat: no-repeat;
+        }
+
+        // Create classes for main sprites folder
+        @each $img in sprite-names($sprite-map) {
+            .#{$folder}-#{$img} {
+                // Extend the parent class with background properties
+                // This will also extend the retina version
+                @extend .#{$folder};
+
+                background-position: sprite-position($sprite-map, $img);
+                height: image-height(sprite-file($sprite-map, $img));
+                width: image-width(sprite-file($sprite-map, $img));
+            }
+        }
+    }
+
+    // Calculate nothing if $sprite-retina-map is left out
+    @if $sprite-retina-map != null {
+        @media (min-resolution: 2dppx),
+        (min-device-pixel-ratio: 2),
+        (-o-min-device-pixel-ratio: 2/1),
+        (-webkit-min-device-pixel-ratio: 2) {
+            .#{$folder} {
+                background-image: sprite-url($sprite-retina-map);
+                @include background-size(ceil(image-width(sprite-path($sprite-retina-map)) / 2) auto);
+            }
+
+            @each $img in sprite-names($sprite-retina-map) {
+                .#{$folder}-#{$img} {
+                    $pos: sprite-position($sprite-retina-map, $img);
+                    background-position: nth($pos, 1) nth($pos, 2) / 2;
+                }
+            }
+        }
+    }
+}
+
+@mixin retina-sprite-img($sprite-map, $sprite-retina-map, $img) {
+    background-image: sprite-url($sprite-map);
+    background-position: sprite-position($sprite-map, $img);
+    height: image-height(sprite-file($sprite-map, $img));
+    width:  image-width(sprite-file($sprite-map, $img));
+
+    @media (min-resolution: 2dppx),
+    (min-device-pixel-ratio: 2),
+    (-o-min-device-pixel-ratio: 2/1),
+    (-webkit-min-device-pixel-ratio: 2) {
+        background-image: sprite-url($sprite-retina-map);
+        @include background-size(ceil(image-width(sprite-path($sprite-retina-map)) / 2) auto);
+        $pos: sprite-position($sprite-retina-map, $img);
+        background-position: nth($pos, 1) nth($pos, 2) / 2;
+    }
+}

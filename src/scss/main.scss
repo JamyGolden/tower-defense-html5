@@ -1,0 +1,38 @@
+// ============================================================================
+// Main Sass file
+// ============================================================================
+@charset "UTF-8";
+
+// Important initial items such as imports, config and functions/mixins
+// ============================================================================
+
+// Compass mixins
+@import "compass/css3";
+
+// Config file contains Sass variables
+@import "inc/config";
+
+// Custom mixins
+@import "inc/mixin";
+
+// CSS related to plugins
+// ============================================================================
+@import "vendor/normalize";
+
+// Helpers
+// ============================================================================
+@import "helpers/helpers";
+@import "vendor/plusgrid";
+
+// Base styles
+// ============================================================================
+@import "inc/font";
+@import "inc/base";
+@import "inc/sprite";
+
+// General components
+// ============================================================================
+@import "components/example/example";
+
+// General print stylesheet - Comes last
+@import "inc/print";

@@ -1,0 +1,35 @@
+// ============================================================================
+// General site layout styles
+//
+// Layout styles prepended with .l for layout. This is also namespaces it
+// to stop library conflicts.
+// ============================================================================
+
+.l-container {
+    margin: 0 auto;
+    position: relative;
+
+    @include bp(sm) {
+        width: 750px;
+    }
+
+    @include bp(md) {
+        width: 970px;
+    }
+
+    @include bp(lg) {
+        width: 1170px;
+    }
+}
+
+.l-left {
+    float: left;
+}
+
+.l-right {
+    float: right;
+}
+
+.l-full {
+    width: 100%;
+}

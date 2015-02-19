@@ -1,0 +1,65 @@
+// ============================================================================
+// Base styles and reset overrides
+// ============================================================================
+
+body,
+input,
+textarea {
+    color: $b-color;
+}
+
+select {
+    color: #666;
+    cursor: pointer;
+}
+
+// Custom highlight styling
+::-moz-selection {
+    background: $primary-color;
+    color: white;
+    text-shadow: none;
+}
+
+::selection {
+    background: $primary-color;
+    color: white;
+    text-shadow: none;
+}
+
+body {
+    font-family: $b-font-family;
+    font-size: $b-font-size;
+    line-height: $b-line-height;
+}
+
+figure img {
+    display: block;
+    max-width: 100%;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+input,
+textarea,
+select {
+    &:focus {
+        outline-color: $primary-color;
+    }
+}
+
+a {
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+        color: $primary-color;
+        text-decoration: underline;
+    }
+}

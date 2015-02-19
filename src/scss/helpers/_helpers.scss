@@ -1,0 +1,40 @@
+// ============================================================================
+// CSS Helpers
+// ============================================================================
+
+.divider {
+    @extend .l-row;
+    background-color: $primary-color;
+    border: none;
+    height: 1px;
+    padding: 0;
+    width: 100%;
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+.is-invisible {
+    visibility: hidden;
+}
+
+.cf {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    *zoom: 1; // IE6 and 7
+}
+
+@import "layout/layout";
+@import "layout/row";
+@import "opacity";
+@import "viewport";
+@import "wrap";

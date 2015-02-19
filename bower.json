@@ -1,0 +1,22 @@
+{
+  "name": "platformer",
+  "version": "0.0.0",
+  "authors": [
+    "Jamy Golden",
+    "Michael Duminy"
+  ],
+  "description": "A platform game",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.2.2"
+  }
+}
