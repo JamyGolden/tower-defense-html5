@@ -20,7 +20,14 @@
     });
 
     gulp.task('js', function () {
-        return gulp.src('src/js/**/*.js')
+        return gulp.src([
+                'src/js/base/BaseCtrl.js',
+                'src/js/base/BaseKeyMapper.js',
+                'src/js/controllers/PreloadCtrl.js',
+                'src/js/controllers/CreateCtrl.js',
+                'src/js/controllers/UpdateCtrl.js',
+                'src/js/main.js',
+            ])
             .pipe(sourcemaps.init())
             .pipe(babel())
             .pipe(concat('app.js'))

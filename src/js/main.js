@@ -1,23 +1,10 @@
-(function() {
+(function(preload, create, update) {
+    var game = new Phaser.Game(800, 600, Phaser.AUTO);
 
-    class Person {
-
-        constructor(args) {
-            this.name = args.name;
-            this.age = args.age;
-        }
-
-        render() {
-            console.log(`${this.name} is ${this.age} years old`);
-        }
+    var GameState = function() {
+        this.preload = App.PreloadCtrl;
+        this.create = App.CreateCtrl;
+        this.update = App.UpdateCtrl;
     }
 
-    var jamy = new Person({
-        name: 'Jamy',
-        age: 27
-    });
-
-    jamy.render();
-
-    // Game here
-})();
+})(App.preload, App.create, App.update);
