@@ -2,6 +2,7 @@
 NOTES
 src/app.js
 src/app.js.map
+prod/
 
 # Text editors
 *.sublime-project

@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "phaser": "~2.2.2"
+    "phaser": "~2.2.2",
+    "traceur": "~0.0.84"
   }
 }
