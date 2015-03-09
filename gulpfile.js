@@ -3,6 +3,7 @@
     var sourcemaps = require('gulp-sourcemaps');
     var compass = require('gulp-compass');
     var concat = require('gulp-concat');
+    var connect = require('gulp-connect');
     var babel = require('gulp-babel');
 
     // For prod one day
@@ -20,6 +21,8 @@
     });
 
     gulp.task('js', function () {
+        connect.server();
+
         return gulp.src([
                 'src/js/base/BaseCtrl.js',
                 'src/js/base/BaseKeyMapper.js',
@@ -32,7 +35,13 @@
             .pipe(babel())
             .pipe(concat('app.js'))
             .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest('src'));
+            .pipe(gulp.dest('src'))
+            .pipe(connect.reload());
+    });
+
+    gulp.task('watch', function () {
+        gulp.watch('src/scss/**.scss', ['compass']);
+        gulp.watch('src/js/**/*.js', ['js']);
     });
 
     // For prod one day
@@ -47,8 +56,5 @@
     //         .pipe(gulp.dest('prod'));
     // });
 
-    gulp.task('default', function() {
-        gulp.watch('src/scss/**.scss', ['compass']);
-        gulp.watch('src/js/**/*.js', ['js']);
-    });
+    gulp.task('default', ['connect', 'watch']);
 })();
