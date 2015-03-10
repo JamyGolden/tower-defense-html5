@@ -17,12 +17,11 @@
                     css: 'src/assets/css',
                     sass: 'src/scss'
                 }))
-            .pipe(gulp.dest('src/assets/css'));
+            .pipe(gulp.dest('src/assets/css'))
+            .pipe(connect.reload());
     });
 
     gulp.task('js', function () {
-        connect.server();
-
         return gulp.src([
                 'src/js/base/BaseCtrl.js',
                 'src/js/base/BaseKeyMapper.js',
@@ -42,6 +41,14 @@
     gulp.task('watch', function () {
         gulp.watch('src/scss/**.scss', ['compass']);
         gulp.watch('src/js/**/*.js', ['js']);
+    });
+
+    gulp.task('connect', function() {
+        connect.server({
+            port: 5123,
+            root: 'src',
+            livereload: true
+        });
     });
 
     // For prod one day
