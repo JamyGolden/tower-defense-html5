@@ -1,3 +1,5 @@
 (function(App) {
-    App.PreloadCtrl = new App.BaseCtrl();
+    App.UpdateCtrl = new App.BaseCtrl(function () {
+        App.level.LevelOne.draw();
+    });
 })(window.App);
