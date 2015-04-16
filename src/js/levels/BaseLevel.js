@@ -1,8 +1,10 @@
 (function(App) {
+    var easystar = new EasyStar.js();
+
     var TYPE_EMPTY = 0;
     var TYPE_WALL = 1;
-    var colSize = 10;
-    var rowSize = 10;
+    var colSize = 30;
+    var rowSize = 30;
     var numCols = 40;
     var numRows = 40;
 
@@ -10,7 +12,7 @@
     App.level.BaseLevel = function () {
 
         this.grid = [];
-        this.bmd = App.Game.add.bitmapData(300, 300);
+        this.bmd = App.Game.add.bitmapData(900, 900);
         this.createGrid();
         // this.draw();
         App.Game.add.sprite(0, 0, this.bmd);
@@ -51,4 +53,24 @@
         this.bmd.render();
     }
 
+    App.level.BaseLevel.prototype.prepForPathfinding = function () {
+        var pGrid = [];
+        for (var y = 0; y < this.grid.length; y++) {
+            pGrid.push(_.pluck(this.grid[y], 'type'));
+        }
+        return pGrid;
+    }
+
+    App.level.BaseLevel.prototype.findPath = function (startX, startY, endX, endY) {
+        easystar.setGrid(this.prepForPathfinding());
+
+        easystar.setAcceptableTiles([0]);
+        easystar.enableDiagonals();
+
+        easystar.findPath(startX, startY, endX, endY, function (path) {
+            // console.log('HELLO', path);
+            App.path = path;
+        });
+        easystar.calculate();
+    }
 })(window.App);
