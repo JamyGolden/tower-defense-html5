@@ -18,6 +18,6 @@
   ],
   "dependencies": {
     "phaser": "~2.2.2",
-    "traceur": "~0.0.84"
+    "underscore": "~1.8.3"
   }
 }
