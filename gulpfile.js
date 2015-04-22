@@ -5,39 +5,64 @@
     var concat = require('gulp-concat');
     var connect = require('gulp-connect');
     var babel = require('gulp-babel');
+    var del = require('del');
+    var run = require('run-sequence');
 
     // For prod one day
     // var uglify = require('gulp-uglify');
-    // var clean = require('gulp-clean');
+
+    gulp.task('clean', function (cb) {
+        del([
+            'deploy',
+        ], cb);
+    });
 
     gulp.task('compass', function() {
         return gulp.src('./src/scss/*.scss')
             .pipe(compass({
                     config_file: './config.rb',
                     css: 'src/assets/css',
-                    sass: 'src/scss'
+                    sass: 'src/scss',
+                    sourcemap: true
                 }))
-            .pipe(gulp.dest('src/assets/css'))
+            .pipe(gulp.dest('deploy/assets/css'))
             .pipe(connect.reload());
     });
 
     gulp.task('js', function () {
         return gulp.src([
-                'src/js/helpers/**/*.js',
-                'src/js/base/**/*.js',
-                'src/js/levels/**/*.js',
-                'src/js/controllers/**/*.js',
-                'src/js/main.js',
+                'src/js/**/*.js',
             ])
+            .pipe(concat('app.js'))
             .pipe(sourcemaps.init())
             .pipe(babel())
-            .pipe(concat('app.js'))
             .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest('src'))
+            .pipe(gulp.dest('deploy/js'))
+            .pipe(connect.reload());
+    });
+
+    gulp.task('static', function () {
+        return gulp.src([
+                'src/index.html',
+                'src/img/**/*.*'
+            ])
+            .pipe(gulp.dest('deploy'))
+            .pipe(connect.reload());
+    });
+
+    gulp.task('vendor', function () {
+        return gulp.src([
+                'vendor/**/*.*',
+            ])
+            .pipe(gulp.dest('deploy/vendor'))
             .pipe(connect.reload());
     });
 
     gulp.task('watch', function () {
+        gulp.watch([
+                'src/index.html',
+                'src/img/**/*.*'
+            ], ['static']);
         gulp.watch('src/scss/**.scss', ['compass']);
         gulp.watch('src/js/**/*.js', ['js']);
     });
@@ -45,9 +70,18 @@
     gulp.task('connect', function() {
         connect.server({
             port: 5123,
-            root: 'src',
+            root: 'deploy',
             livereload: true
         });
+    });
+
+    gulp.task('development', function(cb) {
+        run(
+            'clean', 
+            ['vendor', 'static', 'compass', 'js'], 
+            'connect', 
+            'watch',
+            cb);
     });
 
     // For prod one day
@@ -62,5 +96,5 @@
     //         .pipe(gulp.dest('prod'));
     // });
 
-    gulp.task('default', ['connect', 'watch']);
+    gulp.task('default', ['development']);
 })();

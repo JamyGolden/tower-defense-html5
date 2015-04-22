@@ -1,0 +1,30 @@
+{
+  "name": "easystarjs",
+  "version": "0.1.13",
+  "main": "./bin/easystar-0.1.13",
+  "description": "Asynchronous A* Pathfinding API",
+  "keywords": [
+    "A*",
+    "pathfinding",
+    "grid",
+    "easystar"
+  ],
+  "homepage": "http://www.easystarjs.com",
+  "license": "MIT",
+  "author": {
+    "name": "Bryce Neal",
+    "email": "brycedneal@gmail.com",
+    "url": "http://bryce.is"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-karma": "0.0.4",
+    "gulp-uglify": "^0.3.0",
+    "karma": "^0.12.16",
+    "karma-coverage": "^0.2.4",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4"
+  },
+  "dependencies": {}
+}

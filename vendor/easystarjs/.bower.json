@@ -1,0 +1,37 @@
+{
+  "name": "easystarjs",
+  "version": "0.1.13",
+  "homepage": "https://github.com/prettymuchbryce/easystarjs",
+  "description": "Asynchronous A* Pathfinding API",
+  "main": "./bin/easystar-0.1.12.min.js",
+  "keywords": [
+    "A*",
+    "pathfinding",
+    "grid",
+    "easystar"
+  ],
+  "authors": [
+    {
+      "name": "Bryce Neal",
+      "email": "brycedneal@gmail.com",
+      "homepage": "http://bryce.is"
+    }
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.1.13",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.13",
+    "commit": "a254834243564dea83919a93691dd7da775aadbf"
+  },
+  "_source": "git://github.com/prettymuchbryce/easystarjs.git",
+  "_target": "~0.1.13",
+  "_originalSource": "easystarjs"
+}
