@@ -23,6 +23,8 @@ prod/
 # Grunt
 node_modules/
 bower_components
+vendor
+deploy
 
 npm-debug.log
 
