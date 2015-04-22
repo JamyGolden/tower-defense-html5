@@ -7,7 +7,10 @@
     var babel = require('gulp-babel');
     var del = require('del');
     var run = require('run-sequence');
-
+    var babelify = require('babelify');
+    var browserify = require('browserify');
+    var source = require('vinyl-source-stream');
+    var buffer = require('vinyl-buffer');
     // For prod one day
     // var uglify = require('gulp-uglify');
 
@@ -30,15 +33,28 @@
     });
 
     gulp.task('js', function () {
-        return gulp.src([
-                'src/js/**/*.js',
-            ])
-            .pipe(concat('app.js'))
-            .pipe(sourcemaps.init())
-            .pipe(babel())
-            .pipe(sourcemaps.write('.'))
+        return browserify({
+                entries: './src/js/main.js',
+                debug: true
+            })
+            .transform(babelify)
+            .bundle()
+            .pipe(source('app.js'))
+            .pipe(buffer())
+            .pipe(sourcemaps.init({loadMaps: true})) 
+            .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest('deploy/js'))
             .pipe(connect.reload());
+         
+        // return gulp.src([
+        //         'src/js/**/*.js',
+        //     ])
+        //     .pipe(concat('app.js'))
+        //     .pipe(sourcemaps.init())
+        //     .pipe(babel())
+        //     .pipe(sourcemaps.write('.'))
+        //     .pipe(gulp.dest('deploy/js'))
+        //     .pipe(connect.reload());
     });
 
     gulp.task('static', function () {
