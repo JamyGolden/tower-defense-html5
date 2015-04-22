@@ -1,37 +1,39 @@
-(function(App) {
-    var easystar = new EasyStar.js();
+class BaseLevel {
 
-    var TYPE_EMPTY = 0;
-    var TYPE_WALL = 1;
-    var colSize = 30;
-    var rowSize = 30;
-    var numCols = 40;
-    var numRows = 40;
+    constructor(options) {
+        createPrivateState(this);
 
-    App.level = {};
-    App.level.BaseLevel = function () {
+        _private(this).easystar = new EasyStar.js();
+        _private(this).TYPE_EMPTY = 0;
+        _private(this).TYPE_WALL = 1;
+        _private(this).colSize = 30;
+        _private(this).rowSize = 30;
+        _private(this).numCols = 40;
+        _private(this).numRows = 40;
 
         this.grid = [];
         this.bmd = App.Game.add.bitmapData(900, 900);
         this.createGrid();
         // this.draw();
         App.Game.add.sprite(0, 0, this.bmd);
-    };
+        App.level = {};
+    }
 
-    App.level.BaseLevel.prototype.createGrid = function () {
-        for (var y = 0; y < numRows; y++) {
+
+    createGrid() {
+        for (var y = 0; y < _private(this).numRows; y++) {
             this.grid.push([]);
 
-            for (var x = 0; x < numCols; x++) {
+            for (var x = 0; x < _private(this).numCols; x++) {
                 this.grid[y].push({
-                    type: Math.random() < 0.9 ? TYPE_EMPTY : TYPE_WALL,
+                    type: Math.random() < 0.9 ? _private(this).TYPE_EMPTY : _private(this).TYPE_WALL,
                     entity: null,
                 });
             }
         }
     }
 
-    App.level.BaseLevel.prototype.draw = function () {
+    draw() {
         this.bmd.clear();
         var ctx = this.bmd.ctx;
         ctx.lineWidth = 1;
@@ -41,10 +43,10 @@
             for (var x = 0; x < this.grid[y].length; x++) {
                 ctx.beginPath();
                 ctx.rect(
-                    x * colSize, y * rowSize,
-                    colSize, rowSize);
+                    x * _private(this).colSize, y * _private(this).rowSize,
+                    _private(this).colSize, _private(this).rowSize);
                 ctx.closePath();
-                if (this.grid[y][x].type == TYPE_WALL) {
+                if (this.grid[y][x].type == _private(this).TYPE_WALL) {
                     ctx.fill();
                 }
                 ctx.stroke();
@@ -53,7 +55,7 @@
         this.bmd.render();
     }
 
-    App.level.BaseLevel.prototype.prepForPathfinding = function () {
+    prepForPathfinding() {
         var pGrid = [];
         for (var y = 0; y < this.grid.length; y++) {
             pGrid.push(_.pluck(this.grid[y], 'type'));
@@ -61,16 +63,15 @@
         return pGrid;
     }
 
-    App.level.BaseLevel.prototype.findPath = function (startX, startY, endX, endY) {
-        easystar.setGrid(this.prepForPathfinding());
+   findPath(startX, startY, endX, endY) {
+        _private(this).easystar.setGrid(this.prepForPathfinding());
 
-        easystar.setAcceptableTiles([0]);
-        easystar.enableDiagonals();
+        _private(this).easystar.setAcceptableTiles([0]);
+        // _private(this).easystar.enableDiagonals();
 
-        easystar.findPath(startX, startY, endX, endY, function (path) {
-            // console.log('HELLO', path);
+        _private(this).easystar.findPath(startX, startY, endX, endY, function (path) {
             App.path = path;
         });
-        easystar.calculate();
+        _private(this).easystar.calculate();
     }
-})(window.App);
+};

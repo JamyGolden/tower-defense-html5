@@ -1,5 +1,3 @@
-window.App = window.App || {};
-
 (function(App) {
     App.BaseCtrl = function(args) {
 

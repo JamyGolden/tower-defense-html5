@@ -23,10 +23,11 @@
 
     gulp.task('js', function () {
         return gulp.src([
+                'src/js/helpers/**/*.js',
                 'src/js/base/BaseCtrl.js',
                 'src/js/base/BaseKeyMapper.js',
-                'src/js/controllers/**/*.js',
                 'src/js/levels/**/*.js',
+                'src/js/controllers/**/*.js',
                 'src/js/main.js',
             ])
             .pipe(sourcemaps.init())
