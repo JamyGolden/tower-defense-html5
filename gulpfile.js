@@ -1,7 +1,7 @@
 (function() {
     var gulp = require('gulp');
     var sourcemaps = require('gulp-sourcemaps');
-    var compass = require('gulp-compass');
+    var sass = require('gulp-sass');
     var concat = require('gulp-concat');
     var connect = require('gulp-connect');
     var babel = require('gulp-babel');
@@ -10,13 +10,11 @@
     // var uglify = require('gulp-uglify');
     // var clean = require('gulp-clean');
 
-    gulp.task('compass', function() {
+    gulp.task('sass', function() {
         return gulp.src('./src/scss/*.scss')
-            .pipe(compass({
-                    config_file: './config.rb',
-                    css: 'src/assets/css',
-                    sass: 'src/scss'
-                }))
+            .pipe(sass({
+                outputStyle: 'compressed'
+            }))
             .pipe(gulp.dest('src/assets/css'))
             .pipe(connect.reload());
     });
@@ -38,7 +36,7 @@
     });
 
     gulp.task('watch', function () {
-        gulp.watch('src/scss/**.scss', ['compass']);
+        gulp.watch('src/scss/**.scss', ['sass']);
         gulp.watch('src/js/**/*.js', ['js']);
     });
 
